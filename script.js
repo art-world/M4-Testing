@@ -9,7 +9,7 @@ let userInteracting = false;
 const container = document.getElementById("container");
 const loadingScreen = document.getElementById("loadingScreen");
 
-// loading overlay text + %
+// Loading overlay text + %
 const loadingText = document.createElement("div");
 loadingText.innerText = "Zoom in on the Walkman and hit the 'Play' button...";
 loadingText.style.textAlign = "center";
@@ -19,8 +19,8 @@ const loadingPercentage = document.createElement("div");
 loadingPercentage.id = "loadingPercentage";
 loadingScreen.appendChild(loadingPercentage);
 
-// video elements / playback state
-let video; // <video> element
+// Video / playback state
+let video;              // <video> element
 let hlsInstance = null; // hls.js instance so we can reload streams
 let currentVideoIndex = 0;
 
@@ -31,9 +31,8 @@ const nowPlayingContainer = document.getElementById("nowPlayingContainer");
 const nowPlayingText = document.getElementById("nowPlayingText");
 const progressBar = document.getElementById("progressBar");
 
-// download <a> elements from index.html
-const downloadAlpinaLink = document.getElementById("downloadAlpina");
-const downloadM4Link = document.getElementById("downloadM4");
+// download link element for the ZIP file
+const downloadAudioLink = document.getElementById("downloadAudio");
 
 const MIN_DISPLAY_TIME = 5000;
 const loadingStartTime = Date.now();
@@ -41,19 +40,19 @@ const loadingStartTime = Date.now();
 // =========================
 // MULTI VIDEO STATE
 // =========================
-// We swapped order so your NEW video is first.
+// Order: your NEW video first, original video second.
 const videosData = [
   {
     // VIDEO 1 (new one you sent)
     hlsUrl:
       "https://customer-2qqx87orhla11tfu.cloudflarestream.com/b7423142323ade1585dc51bd498de56c/manifest/video.m3u8",
-    label: "[1/2] Now Playing: Artworld – M4",
+    label: "TRACK ONE TITLE / DOWNLOAD .WAV →",
   },
   {
     // VIDEO 2 (original / older one)
     hlsUrl:
       "https://customer-2qqx87orhla11tfu.cloudflarestream.com/45d54a2b3ec8f752c672d8f727ca8a0a/manifest/video.m3u8",
-    label: "[2/2] Now Playing: Artworld – Alpina",
+    label: "TRACK TWO TITLE / ALT TEXT HERE",
   },
 ];
 
@@ -170,7 +169,11 @@ function init() {
     onUserInteractionStart,
     false
   );
-  renderer.domElement.addEventListener("mouseup", onUserInteractionEnd, false);
+  renderer.domElement.addEventListener(
+    "mouseup",
+    onUserInteractionEnd,
+    false
+  );
   renderer.domElement.addEventListener("wheel", onUserInteractionStart, false);
 
   setupTouchEvents();
@@ -186,7 +189,7 @@ function init() {
     controls.target.set(0, 0, 0);
     controls.update();
 
-    // give shiny feel
+    // give shiny feel on meshes
     model.traverse((child) => {
       if (child.isMesh) {
         child.material.envMapIntensity = 2;
@@ -196,7 +199,7 @@ function init() {
     // setup clickable Walkman areas
     setupModelControls();
 
-    // if videoTexture already exists, we can put the plane on the Walkman screen
+    // if videoTexture already exists, we can overlay it now
     if (videoTexture) createVideoPlaneOverlay();
   });
 
@@ -224,7 +227,11 @@ function setupTouchEvents() {
     onUserInteractionStart,
     false
   );
-  renderer.domElement.addEventListener("touchend", onUserInteractionEnd, false);
+  renderer.domElement.addEventListener(
+    "touchend",
+    onUserInteractionEnd,
+    false
+  );
 }
 
 // =========================
@@ -337,7 +344,7 @@ function onWindowResize() {
 }
 
 // =========================
-// CAMERA FOCUS / ZOOM IN
+/* CAMERA FOCUS / ZOOM IN */
 // =========================
 function focusOnVideoPlane() {
   if (!model) return;
@@ -502,11 +509,9 @@ function setupModelControls() {
   // DOWNLOAD button (pCylinder2_Case1_0)
   downloadButton.userData = {
     action: () => {
-      if (downloadM4Link) {
-        downloadM4Link.click();
-      }
-      if (downloadAlpinaLink) {
-        downloadAlpinaLink.click();
+      // trigger download of the ZIP that contains both tracks
+      if (downloadAudioLink) {
+        downloadAudioLink.click();
       }
     },
   };
