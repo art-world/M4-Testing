@@ -401,7 +401,7 @@ function setupModelControls() {
   const glass2Glass1_0 = model.getObjectByName("Glass2_Glass1_0");
 
   // download hotspot on the Walkman body
-  const downloadButton = model.getObjectByName("pCylinder2_Case1_0");
+  const downloadButton = model.getObjectByName("pCube3_Case1_0");
 
   if (
     !playButton ||
