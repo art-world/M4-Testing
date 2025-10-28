@@ -46,13 +46,13 @@ const videosData = [
     // VIDEO 1 (new one you sent)
     hlsUrl:
       "https://customer-2qqx87orhla11tfu.cloudflarestream.com/b7423142323ade1585dc51bd498de56c/manifest/video.m3u8",
-    label: "TRACK ONE TITLE / DOWNLOAD .WAV →",
+    label: "[1/2] Now Playing: Artworld - M4",
   },
   {
     // VIDEO 2 (original / older one)
     hlsUrl:
       "https://customer-2qqx87orhla11tfu.cloudflarestream.com/45d54a2b3ec8f752c672d8f727ca8a0a/manifest/video.m3u8",
-    label: "TRACK TWO TITLE / ALT TEXT HERE",
+    label: "[2/2] Now Playing: Artworld - Alpina",
   },
 ];
 
